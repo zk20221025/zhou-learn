@@ -10,4 +10,16 @@ contract IntialValue {
     ActionSet public _enum;
     function fi() internal{}
     function fe() external{}
+    uint[8] public _staticArray;//[0,0,0,0,0,0,0,0,]
+    uint[] public _dynamicArrayl;//[]
+    mapping(uint => address) public _mapping;
+    struct Student{
+       uint256 id;
+       uint256 score;
+    }
+    Student public student;
+    bool public _bool2 = true;
+    function d() external {
+        delete _bool2;
+    }
 }

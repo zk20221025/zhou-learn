@@ -9,6 +9,9 @@ contract IntialValue {
     enum ActionSet {Buy,Hold,Sell}
     ActionSet public _enum;
     function fi() internal{}
+    function fiCall() external{
+        fi();
+    }
     function fe() external{}
     uint[8] public _staticArray;//[0,0,0,0,0,0,0,0,]
     uint[] public _dynamicArrayl;//[]

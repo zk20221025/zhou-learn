@@ -6,5 +6,9 @@ contract Owner {
     constructor() {
         owner = msg.sender;
     }
+    modifier onlyOwner {
+        require (msg.sender == owner);
+        _;
+    }
     
 }

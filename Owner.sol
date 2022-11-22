@@ -13,5 +13,4 @@ contract Owner {
     function changeOwner(address _newOwner) external onlyOwner {
         owner = _newOwner;
     }
-    
 }

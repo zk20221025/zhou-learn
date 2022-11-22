@@ -10,5 +10,8 @@ contract Owner {
         require (msg.sender == owner);
         _;
     }
+    function changeOwner(address _newOwner) external onlyOwner {
+        owner = _newOwner;
+    }
     
 }

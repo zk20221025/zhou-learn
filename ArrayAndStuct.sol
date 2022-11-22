@@ -39,19 +39,20 @@ contract StructTypes {
         uint256 id;
         uint256 score; 
     }
-    Student student; // 初始一个student结构体
+    Student public student; // 初始一个student结构体
     //  给结构体赋值
     // 方法1:在函数中创建一个storage的struct引用
-    function initStudent1() external{
+    function initStudent1() public {
         Student storage _student = student; // assign a copy of student
         _student.id = 11;
         _student.score = 100;
     }
 
      // 方法2:直接引用状态变量的struct
-    function initStudent2() external{
+    function initStudent2() public returns (uint[] memory _id){
         student.id = 1;
         student.score = 80;
+        return(_id);
     }
 }
 

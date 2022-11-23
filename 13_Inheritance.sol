@@ -38,8 +38,16 @@ contract Base1 {
     }
 }
 contract Identifier is Base1 {
-    function getExactDivideBy2And3(uint _dividend) public exactDivideBy2And3(_dividend) pure returns(uint,uint) {
+    function getExactDivideBy2And3(uint _dividend) public exactDivideBy2And3(_dividend) pure returns(uint, uint) {
         return getExactDivideBy2And3WithoutModifier(_dividend);
     } 
-    
+    function getExactDivideBy2And3WithoutModifier(uint _dividend) public pure returns (uint, uint) {
+        uint div2 = _dividend / 2;
+        uint div3 = _dividend / 3;
+        return (div2, div3);
+    }
+    modifier exactDivideBy2And3(uint _a) override {
+        _;
+        require ( _a % 2 == 0 && _a % 3 == 0 );
+    }
 }

@@ -18,3 +18,13 @@ interface IERC721 is IERC165 {
     function isApprovalForAll(address owner , address operator) external view returns(bool);
     function safeTransferFrom(address form , address to , uint256 TokenId , bytes calldata data) external;
 }
+contract interactBAYC {
+    IERC721 BAYC = IERC721(0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D);
+    function balanceOfBAYC(address owner) external view returns (uint256 balance){
+        return BAYC.balanceOf(owner);
+    }
+    function safeTransferFromBAYC(address from , address to , uint256 TokenId) external {
+        BAYC.safeTransferFrom(from , to , TokenId);
+    }
+    
+}

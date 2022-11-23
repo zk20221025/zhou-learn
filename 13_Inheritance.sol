@@ -30,5 +30,16 @@ contract Erzi is Yeye , Baba {
     function pop() public virtual override (Yeye, Baba){
         emit Log ("Erzi");
     }
-
+}
+contract Base1 {
+    modifier exactDivideBy2And3(uint _a) virtual {
+        require(_a % 2 == 0 && _a % 3 == 0 );
+        _;
+    }
+}
+contract Identifier is Base1 {
+    function getExactDivideBy2And3(uint _dividend) public exactDivideBy2And3(_dividend) pure returns(uint,uint) {
+        return getExactDivideBy2And3WithoutModifier(_dividend);
+    } 
+    
 }

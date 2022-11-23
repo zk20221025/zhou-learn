@@ -23,3 +23,11 @@ contract Baba is Yeye {
         emit Log ("Baba");
     }
 }
+contract Erzi is Yeye , Baba {
+    function hip() public virtual override (Yeye, Baba){
+        emit Log ("Erzi");
+    }
+    function pop() public virtual override (Yeye, Baba){
+        emit Log ("Erzi");
+    }
+}

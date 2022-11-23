@@ -26,5 +26,4 @@ contract interactBAYC {
     function safeTransferFromBAYC(address from , address to , uint256 TokenId) external {
         BAYC.safeTransferFrom(from , to , TokenId);
     }
-    
 }

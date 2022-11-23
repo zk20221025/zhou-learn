@@ -30,4 +30,7 @@ contract Erzi is Yeye , Baba {
     function pop() public virtual override (Yeye, Baba){
         emit Log ("Erzi");
     }
+        function callParent() public{
+        Erzi.pop();
+    }
 }

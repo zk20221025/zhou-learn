@@ -5,7 +5,7 @@ contract Overload {
         return ("Nothing");
     }
     function saySomething(string memory something) public pure returns (string memory) {
-        return (something);
+        return something;
     }
     function f(uint8 _in) public pure returns (uint8 out) {
         out = _in ;

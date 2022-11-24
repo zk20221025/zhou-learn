@@ -16,7 +16,6 @@ contract Test1 is Test {
         owner = msg.sender;
     }
 
-
     //现实numberStroe存储的所有数字 并释放一个 show Action事件
     function show() external view virtual override returns(uint256[] memory _numberStore){    
         _numberStore = numberStore;
@@ -59,5 +58,4 @@ contract Test1 is Test {
     function changeOwner(address newOwner) external virtual override onlyOwner {
         owner = newOwner;
     }
-
 }

@@ -4,5 +4,7 @@ contract Overload {
     function saySomething() public pure returns(string memory) {
         return ("Nothing");
     }
-
+    function saySomething(string memory something) public pure returns (string memory) {
+        return (something);
+    }
 }

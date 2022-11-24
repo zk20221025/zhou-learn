@@ -13,7 +13,12 @@ contract Errors {
     }
 
     function transferOwner2(uint256 tokenId , address newOwner) public {
-        require(_owners[tokenId] != msg.sender , "transfer Not Owner");
+        require (_owners[tokenId] != msg.sender , "transfer Not Owner");
+        _owners[tokenId] = newOwner ;
+    }
+
+    function transferOwner3(uint256 tokenId , address newOwner) public {
+        assert (_owners[tokenId] == msg.sender);
         _owners[tokenId] = newOwner ;
     }
 }

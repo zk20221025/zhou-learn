@@ -12,5 +12,8 @@ contract Errors {
         _owners[tokenId] = newOwner ;
     }
 
-
+    function transferOwner2(uint256 tokenId , address newOwner) public {
+        require(_owners[tokenId] != msg.sender , "transfer Not Owner");
+        _owners[tokenId] = newOwner ;
+    }
 }

@@ -33,6 +33,7 @@ library Strings {
         }
         return toHexString(value , length);
     }
+
         function toHexString(uint256 value, uint256 length) public pure returns (string memory) {
         bytes memory buffer = new bytes(2 * length + 2);
         buffer[0] = "0";
@@ -44,4 +45,15 @@ library Strings {
         require(value == 0, "Strings: hex length insufficient");
         return string(buffer);
         }
+}
+
+contract Uselibrary {
+    using Strings for uint256 ;
+
+    function getString1(uint256 _number) public pure returns (string memory) {
+        return _number.toHexString();
+    }
+    function getString2(uint256 _number) public pure returns (string memory) {
+        return Strings.toHexString(_number);
+    }
 }

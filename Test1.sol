@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.4;
-import "./Test.sol";
+import "/Test.sol";
 contract Test1 is Test {
     modifier onlyOwner virtual override {
         require(msg.sender == owner); 

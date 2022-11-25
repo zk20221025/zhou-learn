@@ -57,12 +57,3 @@ contract Identifier is Base1 {
         require ( _a % 2 == 0 && _a % 3 == 0 );
     }
 }
- abstract contract A {
-    uint public a;
-    constructor(uint _a) {
-        a = _a ;
-    }
-}
-contract C is A {
-    constructor (uint _c) A (_c * _c) {}
-}

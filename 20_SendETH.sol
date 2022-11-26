@@ -1,5 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.4;
+
+error SendFailed();
+error CallFailed();
+
 contract ReceiveETH {
     event Log (uint amount , uint gas);
 
@@ -24,6 +28,13 @@ contract SendETH {
         bool success = _to.send(amount);
         if (!success) {
             revert SendFailed();
+        }
+    }
+
+    function callETtH (address payable _to , uint256 amount) external payable {
+        (bool success,) = _to.call{value: amount}("");
+        if (!success) {
+            revert CallFailed();
         }
     }
 }

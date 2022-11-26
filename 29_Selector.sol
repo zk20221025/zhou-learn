@@ -4,12 +4,12 @@ contract Selector {
 
     event Log(bytes data);
 
-    function mint(address to) external {
+    function mint(address) external {
         emit Log(msg.data);
     }
 
     function mintSelector() external pure returns (bytes4 mSelector) {
-        return bytes4(keccak256("mint(address)"));
+        return bytes4(keccak256("transfer(address,uint256)"));
     }
 
     function callWithSignature() external returns (bool , bytes memory) {

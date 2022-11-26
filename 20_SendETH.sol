@@ -19,4 +19,11 @@ contract SendETH {
     function transferETH (address payable _to , uint256 amount) external payable {
         _to.transfer(amount);
     }
+
+    function sendETH (address payable _to , uint256 amount) external payable {
+        bool success = _to.send(amount);
+        if (!success) {
+            revert SendFailed();
+        }
+    }
 }

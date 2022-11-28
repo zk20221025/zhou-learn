@@ -2,7 +2,7 @@
 pragma solidity ^0.8.4;
 
 contract OtherContract {
-    uint256 private _x = 0 ;
+    uint256 private _x = 0;
     event Log(uint amount , uint gas);
     
     fallback() external payable {}
@@ -12,13 +12,35 @@ contract OtherContract {
     }
 
     function setX(uint256 x) external payable {
-        _x = x ;
+        _x = x;
         if (msg.value > 0) {
             emit Log(msg.value , gasleft());
         }
     }
 
     function getX() external view returns(uint x) {
-        x = _x ;
+        x = _x;
     }
+}
+
+contract Call {
+    event Response(bool success , bytes data);
+
+    function callSetX(address payable _addr , uint256 x) public payable {
+        (bool success , bytes memory data) = _addr.call {value : msg.value }(
+            abi.encodeWithSignature("getX()"));
+        
+        emit Response(success , data);
+    }
+
+    function callGetX(address _addr) external returns(uint256) {
+        (bool success , bytes memory data) = _addr.call(
+            abi.encodeWithSignature("getX()")
+        );
+
+        emit Response(success , data);
+        return abi.decode(data , (uint256));
+    }
+
+    function
 }

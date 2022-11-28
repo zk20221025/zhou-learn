@@ -42,5 +42,11 @@ contract Call {
         return abi.decode(data , (uint256));
     }
 
-    function
+    function callNonExist(address _addr) external {
+        (bool success , bytes memory data) = _addr.call(
+            abi.encodeWithSignature("foo(uint256")
+        );
+
+        emit Response(success , data);
+    }
 }

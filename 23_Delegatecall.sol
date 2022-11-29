@@ -10,3 +10,20 @@ contract C {
         sender = msg.sender;
     }
 }
+
+contract B {
+    uint public num;
+    address public sender;
+
+    function callSetVars(address _addr , uint  _num) external payable {
+        (bool success , bytes memory data) = _addr.call(
+            abi.encodeWithSignature("setVars(uint256)" , _num)
+        );
+    }
+
+    function delegatecallSetVars(address _addr , uint _num) external payable {
+    (bool success , bytes memory data) = _addr.delegatecall(
+        abi.encodeWithSignature("setVars(uint256)" , _num)
+    );  
+    }
+}

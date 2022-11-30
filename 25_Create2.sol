@@ -31,4 +31,17 @@ contract PairFactory2 {
         getPair[tokenA][tokenB] = pairAddr;
         getPair[tokenB][tokenA] = pairAddr;
         }
+
+    function calculateAddr(address tokenA , address tokenB) public view returns (address predictedAddress) {
+        require(tokenA != tokenB , 'IDENTICAL_ADDRESSES');
+        (address token0 , address token1) = tokenA < tokenB ? (tokenA , tokenB) : (tokenB , tokenA);
+        bytes32 salt = keccak256(abi.encodePacked(token0 , token1));
+        predictedAddress = address(uint160(uint(keccak256(abi.encodePacked(
+            bytes1(0xff),
+            address(this),
+            salt,
+            keccak256(type(Pair).creationCode)
+        )))));
+    }
 }
+

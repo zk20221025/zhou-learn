@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.4;
-contract pair {
+contract Pair {
     address public factory;
     address public token0;
     address public token1;
@@ -14,4 +14,21 @@ contract pair {
         token0 = _token0;
         token1 = _token1;
     }
+}
+
+contract PairFactory2 {
+    mapping(address => mapping(address => address)) public getPair;
+    address[] public allPairs;
+
+    function createPair2(address tokenA , address tokenB) external returns (address pairAddr) {
+        require(tokenA != tokenB , 'IDENYICAL_ADDRESSES');
+        (address token0 , address token1) = tokenA < tokenB ? (tokenA , tokenB) : (tokenB , tokenA);
+        bytes32 salt = keccak256(abi.encodePacked(token0 , token1));
+        Pair pair = new Pair {salt: salt}();
+        pair.initialize(tokenA , tokenB);
+        pairAddr = address(pair);
+        allPairs.push(pairAddr);
+        getPair[tokenA][tokenB] = pairAddr;
+        getPair[tokenB][tokenA] = pairAddr;
+        }
 }

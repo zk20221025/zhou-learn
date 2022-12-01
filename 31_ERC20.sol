@@ -16,6 +16,11 @@ contract ERC20 is IERC20 {
 
     uint8 public decimals = 18;
 
+    constructor(string memory name_ , string memory symbol_) {
+        name = name_;
+        symbol = symbol_;
+    }
+
     function transfer(address recipient , uint amount) external override returns (bool) {
         balanceOf[msg.sender] -= amount;
         balanceOf[recipient] += amount;

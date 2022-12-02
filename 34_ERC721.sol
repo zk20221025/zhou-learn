@@ -66,13 +66,15 @@ contract ERC721 is IERC721 , IERC721Metadata {
         emit Approval(owner , to , tokenId);
     }
 
-    function approve(address to , uint tokenId) external override {
+    function approve(address to, uint tokenId) external override {
         address owner = _owners[tokenId];
         require(
             msg.sender == owner || _operatorApprovals[owner][msg.sender],
             "not owner nor approved for all"
         );
+        _approve(owner, to, tokenId);
     }
+
 
     function _isApprovedOrOwner(
         address owner,

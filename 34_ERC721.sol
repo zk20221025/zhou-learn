@@ -42,7 +42,7 @@ contract ERC721 is IERC721 , IERC721Metadata {
         return _balances[owner];
     }
 
-    function ownerof(uint tokenId) public view override returns (address owner) {
+    function ownerOf(uint tokenId) public view override returns (address owner) {
         owner = _owners[tokenId];
         require(owner != address(0) , "token doesn't exist");
     }
@@ -107,7 +107,7 @@ contract ERC721 is IERC721 , IERC721Metadata {
         address to,
         uint tokenId
     ) external override {
-        address owner = ownerof(tokenId);
+        address owner = ownerOf(tokenId);
         require(
             _isApprovedOrOwner(owner,msg.sender , tokenId),
             "not owner nor approves"
@@ -132,7 +132,7 @@ contract ERC721 is IERC721 , IERC721Metadata {
         uint tokenId,
         bytes memory _data
     ) public override {
-        address owner = ownerof(tokenId);
+        address owner = ownerOf(tokenId);
         require(
             _isApprovedOrOwner(owner , msg.sender , tokenId),
             "not owner nor approved"
@@ -159,7 +159,7 @@ contract ERC721 is IERC721 , IERC721Metadata {
     }
 
     function _burn(uint tokenId) internal virtual {
-        address owner = ownerof(tokenId);
+        address owner = ownerOf(tokenId);
         require(msg.sender == owner , "not owner of token");
 
         _approve(owner , address(0) , tokenId);

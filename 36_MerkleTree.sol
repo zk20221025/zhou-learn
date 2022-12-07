@@ -24,3 +24,16 @@ library MerkleProof {
        return a < b ? keccak256(abi.encodePacked(a,b)) : keccak256(abi.encodePacked(b,a)); 
     }
 }
+
+contract MerkleTree is ERC721 {
+    bytes32 immutable public root;
+    mapping(address => bool) public mintedAddress;
+
+    constructor(string memory name , string memory symbol , bytes32 merkleroot)
+    ERC721(name , symbol)
+    {
+        root = merkleroot;
+    }
+
+    function
+}

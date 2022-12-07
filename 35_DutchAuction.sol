@@ -51,7 +51,7 @@ contract DutchAuction is Ownable , ERC721 {
         }
 
         if (msg.value > totalCost) {
-            payable(msg.sender).tranfer(msg.value - totalCost);
+            payable(msg.sender).transfer(msg.value - totalCost);
         }
     }
 
@@ -69,5 +69,22 @@ contract DutchAuction is Ownable , ERC721 {
             AUCTION_DROP_INTERVAL;
             return AUCTION_START_PRICE - (steps * AUCTION_DROP_PER_STEP);
         }
+    }
+
+    function setAuctionStartTime(uint32 timestamp) external onlyOwner {
+        auctionStartTime = timestamp;
+    }
+
+    function _baseURI() internal view virtual override returns (string memory ) {
+        return _baseTokenURI;
+    }
+
+    function setBaseURI(string calldata baseURI) external onlyOwner {
+        _baseTokenURI = baseURI;
+    }
+
+    function withdrawMoney() external onlyOwner {
+        (bool success, ) = msg.sender.call{value: address(this).balance}("");
+        require(success , "Trabsfer failed.");
     }
 }

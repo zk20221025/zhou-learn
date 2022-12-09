@@ -59,13 +59,26 @@ contract NFTSwap is IERC721Receiver {
     function revoke(address _nftAddr , uint256 _tokenId) public {
         Order storage _order = nftList[_nftAddr][_tokenId];
         require(_order.owner == msg.sender , "Not Owner");
+
         IERC721 _nft = IERC721(_nftAddr);
         require(_nft.ownerOf(_tokenId) == address(this) , "Invalid Order");
+
         _nft.safeTransferFrom(address(this) , msg.sender , _tokenId);
         delete nftList[_nftAddr][_tokenId];
+
         emit Revoke(msg.sender , _nftAddr , _tokenId);
 
     }
 
-    
+    function update(address _nftAddr , uint256 _tokenId , uint256 _newPrice) public {
+        require(_newPrice > 0 , "Invalid Price");
+        Order storage _order = nftList[_nftAddr][_tokenId];
+        require(_order.owner == msg.sender , "Not Owner");
+
+        IERC721 _nft = IERC721(_nftAddr);
+        require(_nft.ownerOf(_tokenId) == address(this) , "Invalid Order");
+
+        _order.price = _newPrice;
+        emit Update(msg.sender , _nftAddr , _tokenId , _newPrice);
+    }    
 }

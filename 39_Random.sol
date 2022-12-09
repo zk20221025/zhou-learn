@@ -44,4 +44,12 @@ contract RabdonNumber is ERC721 , VRFConsumerBase {
         _mint(msg.sender , _tokenId);
     }
 
+    function mintRandomVRF() public returns (bytes32 requestId) {
+        require(LINK.balanceOf(address(this)) >= fee , "Not enough LINK - fill contract with faucet");
+        requestId = requestRandomness(keyHash , fee);
+        requestToSender[requestId] = msg.sender;
+        return requestId;
+    }
+
+    function
 }

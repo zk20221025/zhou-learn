@@ -30,4 +30,13 @@ contract RabdonNumber is ERC721 , VRFConsumerBase {
         return uint256(randomBytes);
     }
 
+    function pickRandomUniqueId(uint256 random) private returns (uint256 tokenId) {
+        uint256 len = totalSupply - mintCount++;
+        require(len > 0 , "mint close");
+        uint256 randomIndex = random & len;
+        tokenId = ids[randomIndex] != 0 ? ids[randomIndex] : randomIndex;
+        ids[randomIndex] = ids[len - 1] == 0 ? len - 1 : ids[len - 1];
+        ids[len - 1] = 0;
+    }
+
 }

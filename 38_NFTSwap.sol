@@ -40,4 +40,32 @@ contract NFTSwap is IERC721Receiver {
         _nft.safeTransferFrom(msg.sender , address(this) , _tokenId);
         emit List(msg.sender , _nftAddr , _tokenId , _price);
     }
+
+    function purchase(address _nftAddr , uint256 _tokenId) payable public {
+        Order storage _order = nftList[_nftAddr][_tokenId];
+        require(_order.price > 0 , "Invalid price");
+        require(msg.value >= _order.price , "increase price");
+        IERC721 _nft = IERC721(_nftAddr);
+        require(_nft.ownerOf(_tokenId) == address(this) , "Invalid Order");
+
+        _nft.safeTransferFrom(address(this) , msg.sender , _tokenId);
+        payable(_order.owner).transfer(_order.price);
+        payable(msg.sender).transfer(msg.value - _order.price);
+
+        delete nftList[_nftAddr][_tokenId];
+        emit Purchase(msg.sender , _nftAddr , _tokenId , msg.value);
+    }
+
+    function revoke(address _nftAddr , uint256 _tokenId) public {
+        Order storage _order = nftList[_nftAddr][_tokenId];
+        require(_order.owner == msg.sender , "Not Owner");
+        IERC721 _nft = IERC721(_nftAddr);
+        require(_nft.ownerOf(_tokenId) == address(this) , "Invalid Order");
+        _nft.safeTransferFrom(address(this) , msg.sender , _tokenId);
+        delete nftList[_nftAddr][_tokenId];
+        emit Revoke(msg.sender , _nftAddr , _tokenId);
+
+    }
+
+    
 }

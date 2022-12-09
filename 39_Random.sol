@@ -39,4 +39,9 @@ contract RabdonNumber is ERC721 , VRFConsumerBase {
         ids[len - 1] = 0;
     }
 
+    function mintRandomOnchain() public {
+        uint256 _tokenId = pickRandomUniqueId(getRandomOnchain());
+        _mint(msg.sender , _tokenId);
+    }
+
 }

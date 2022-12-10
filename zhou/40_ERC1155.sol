@@ -72,5 +72,11 @@ contract ERC1155 is IERC165 , IERC1155 , IERC1155MetadataURI {
         require(to != address(0), "ERC1155: transfer to the zero address");
 
         uint256 fromBalance = _balances[id][from];
+        require(fromBalance >= amount , "ERC1155: insufficient balance for transfer");
+        uncheked {
+            _balances[id][from] = fromBalance - amount;
+        }
+        _balances[id][to] += amount;
+        emit TransferSingle(operator , from , to , id , amount , data);
     }
 }

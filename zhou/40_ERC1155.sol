@@ -57,5 +57,20 @@ contract ERC1155 is IERC165 , IERC1155 , IERC1155MetadataURI {
         return _operatorApprovals[account][operator];
     }
 
-    
+    function safeTransferFrom(
+        address from,
+        address to,
+        uint256 id,
+        uint256 amount,
+        bytes memory data
+    ) public virtual override {
+        address operator = msg.sender;
+        require(
+            from == operator || isApprovedForAll(from , operator),
+            "ERC1155: caller is not token owner nor approved"
+        );
+        require(to != address(0), "ERC1155: transfer to the zero address");
+
+        uint256 fromBalance = _balances[id][from];
+    }
 }

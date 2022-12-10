@@ -9,5 +9,17 @@ import "../34_String.sol";
 import "./34_IERC165.sol";
 
 contract ERC1155 is IERC165 , IERC1155 , IERC1155MetadataURI {
-    
+    using Address for address;
+    using Strings for uint256;
+
+    string public name;
+    string public symbol;
+
+    mapping(uint256 => mapping(address => uint256)) private _balances;
+    mapping(address => mapping(address => bool)) private _operatorApprovals;
+
+    constructor(string memory name_ , string memory symbol_) {
+        name = name_;
+        symbol = symbol_;
+    }
 }

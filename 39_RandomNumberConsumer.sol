@@ -22,4 +22,8 @@ contract RandomNumberConsumer is VRFConsumerBase {
         require(LINK.balanceOf(address(this)) >= fee, "Not enough LINK - fill contract with faucet");
         return requestRandomness(keyHash , fee);
     }
+
+    function fulfillRandomness(bytes32 requestId , uint256 randomness) internal override {
+        randomResult = randomness;
+    }
 }

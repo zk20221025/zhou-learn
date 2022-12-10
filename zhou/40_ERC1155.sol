@@ -35,5 +35,15 @@ contract ERC1155 is IERC165 , IERC1155 , IERC1155MetadataURI {
         return _balances[id][account];
     }
 
-    
+    function balanceOfBatch(address[] memory accounts , uint256[] memory ids)
+    public view virtual override
+    returns (uint256[] memory)
+    {
+        require(accounts.length == ids.length , "ERC1155: accounts and ids length mismatch");
+        uint256[] memory batchBalances = new uint256[](accounts.length);
+        for (uint256 i = 0; i < accounts.length; ++i) {
+            batchBalances[i] = balanceOf(accounts[i] , ids[i]);
+        }
+        return batchBalances;
+    }
 }

@@ -19,6 +19,8 @@ interface IERC1155 is IERC165 {
 
     event URI(string value , uint256 indexed id);
 
+    function balanceOf(address account , uint256 id) external view returns (uint256);
+    
     function balanceOfBatch(address[] calldata accounts , uint256[] calldata ids)
     external
     view

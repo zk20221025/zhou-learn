@@ -52,4 +52,10 @@ contract ERC1155 is IERC165 , IERC1155 , IERC1155MetadataURI {
         _operatorApprovals[msg.sender][operator] = approved;
         emit ApprovalForAll(msg.sender , operator , approved);
     }
+
+    function isApprovedForAll(address account , address operator) public view virtual override returns (bool) {
+        return _operatorApprovals[account][operator];
+    }
+
+    
 }

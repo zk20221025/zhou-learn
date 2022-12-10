@@ -46,4 +46,10 @@ contract ERC1155 is IERC165 , IERC1155 , IERC1155MetadataURI {
         }
         return batchBalances;
     }
+
+    function setApprovalForAll(address operator , bool approved) public virtual override {
+        require(msg.sender != operator , "ERC1155: setting approval status for srlf");
+        _operatorApprovals[msg.sender][operator] = approved;
+        emit ApprovalForAll(msg.sender , operator , approved);
+    }
 }

@@ -51,5 +51,9 @@ contract RabdonNumber is ERC721 , VRFConsumerBase {
         return requestId;
     }
 
-    function
+    function fulfillRandomness(bytes32 requestId , uint256 randomness) internal override {
+        address sender = requestToSender[requestId];
+        uint256 _tokenId = pickRandomUniqueId(randomness);
+        _mint(sender , _tokenId);
+    }
 }

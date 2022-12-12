@@ -78,7 +78,7 @@ contract ERC1155 is IERC165 , IERC1155 , IERC1155MetadataURI {
         }
         _balances[id][to] += amount;
         emit TransferSingle(operator , from , to , id , amount);
-        _doSafeBatchTransferAcceptanceCheck(operator , from , to , id , amount , data);
+        _doSafeTransferAcceptanceCheck(operator , from , to , id , amount , data);
     }
 
     function safeBatchTransferFrom(
@@ -123,7 +123,7 @@ contract ERC1155 is IERC165 , IERC1155 , IERC1155MetadataURI {
         _balances[id][to] += amount;
         emit TransferSingle(operator , address(0) , to , id , amount);
 
-        _doSafeBatchTransferAcceptanceCheck(operator , address(0) , to , id , amount , data);
+        _doSafeTransferAcceptanceCheck(operator , address(0) , to , id , amount , data);
     }
 
     function _mintBatch(
@@ -180,7 +180,7 @@ contract ERC1155 is IERC165 , IERC1155 , IERC1155MetadataURI {
         emit TransferBatch(operator , from , address(0) , ids ,amounts);
     }
 
-    function _doSafeBatchTransferAcceptanceCheck(
+    function _doSafeTransferAcceptanceCheck(
         address operator,
         address from,
         address to,
@@ -201,5 +201,26 @@ contract ERC1155 is IERC165 , IERC1155 , IERC1155MetadataURI {
         }
     }
 
-    
+    function _doSafeBatchTransferAcceptanceCheck(
+        address operator,
+        address from,
+        address to,
+        uint256[] memory ids,
+        uint256[] memory amounts,
+        bytes memory data
+    ) private {
+        if (to.isContract()) {
+            try IERC1155Receiver(to).onERC721Received(operator , from , ids , amounts , data) returns (
+                bytes4 response
+            ) {
+                if (response != IERC1155Receiver.onERC721Received.selector) {
+                    revert("ERC1155: ERC1155Receiver rejected tokens");
+                }
+            } catch Error(string memory reason) {
+                revert(reason);
+            } catch {
+                revert("ERC1155: transfer to non-ERC1155Receiver implementer");
+            }
+        }
+    }
 }

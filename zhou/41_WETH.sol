@@ -13,5 +13,19 @@ contract WETH is ERC20 {
         deposit();
     }
 
-    receive() external
+    receive() external payable {
+        deposit();
+    }
+
+    function deposit() public payable {
+        _mint(msg.sender , msg.value);
+        emit Deposit(msg.sender , msg.value);
+    }
+
+    function withdraw(uint amount) public {
+        require(balanceOf(msg.sender) >= amount);
+        _burn(msg.sender , amount);
+        payable(msg.sender).transfer(amount);
+        emit Withdrawal(msg.sender , amount);
+    }
 }

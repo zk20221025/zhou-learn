@@ -210,7 +210,7 @@ contract ERC1155 is IERC165 , IERC1155 , IERC1155MetadataURI {
         bytes memory data
     ) private {
         if (to.isContract()) {
-            try IERC1155Receiver(to).onERC721Received(operator , from , ids , amounts , data) returns (
+            try IERC1155Receiver(to).onERC1155BatchReceived(operator , from , ids , amounts , data) returns (
                 bytes4 response
             ) {
                 if (response != IERC1155Receiver.onERC721Received.selector) {
@@ -222,5 +222,14 @@ contract ERC1155 is IERC165 , IERC1155 , IERC1155MetadataURI {
                 revert("ERC1155: transfer to non-ERC1155Receiver implementer");
             }
         }
+    }
+
+    function uri(uint256 id) public view virtual override returns (string memory) {
+        string memory baseURI = _baseURI();
+        return bytes(baseURI).length > 0 ? string(abi.encodePacked(baseURI , id.toString())) : "";
+    }
+
+    function _baseURI() internal view virtual returns (string memory) {
+        return "";
     }
 }

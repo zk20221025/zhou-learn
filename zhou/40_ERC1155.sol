@@ -178,4 +178,25 @@ contract ERC1155 is IERC165 , IERC1155 , IERC1155MetadataURI {
         }
         emit TransferBatch(operator , from , address(0) , ids ,amounts);
     }
+
+    function _doSafeBatchTransferAcceptanceCheck(
+        address operator,
+        address from,
+        address to,
+        uint256 id,
+        uint256 amount,
+        bytes memory data
+    ) private {
+        if (to.isContract()) {
+            try IERC1155Receiver(to).onERC721Received(operator , from , id , amount , data) returns (bytes4 response) {
+                if (response != IERC1155Receiver.onERC721Received.selector) {
+                    revert("ERC1155: ERC1155Receiver rejectes tokens");
+                }
+            } catch Error(string memory reason) {
+                revert(reason);
+            } catch {
+                revert("ERC1155: transfer to non-ERC1155Receiver implementer");
+            }
+        }
+    }
 }

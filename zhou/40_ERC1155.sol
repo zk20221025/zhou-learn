@@ -73,7 +73,7 @@ contract ERC1155 is IERC165 , IERC1155 , IERC1155MetadataURI {
 
         uint256 fromBalance = _balances[id][from];
         require(fromBalance >= amount , "ERC1155: insufficient balance for transfer");
-        uncheked {
+        unchecked {
             _balances[id][from] = fromBalance - amount;
         }
         _balances[id][to] += amount;
@@ -157,4 +157,25 @@ contract ERC1155 is IERC165 , IERC1155 , IERC1155MetadataURI {
         }
 
         emit TransferSingle(operator, from, address(0), id, amount);
+    }
+
+    function _burnBatch(
+        address from,
+        uint256[] memory ids,
+        uint256[] memory amounts
+    ) internal virtual {
+        require(from != address(0) , "ERC1155: burn from the zero address");
+        require(ids.length == amounts.length , "ERC1155: ids and amounts length mismatch");
+        address operator = msg.sender;
+        for (uint256 i = 0; i < ids.length; i++) {
+            uint256 id = ids[i];
+            uint256 amount = amounts[i];
+            uint256 fromBalance = _balances[id][from];
+            require(fromBalance >= amount , "ERC1155: burn amount exceeds balance");
+            unchecked {
+                _balances[id][from] = fromBalance - amount;
+            }
+        }
+        emit TransferBatch(operator , from , address(0) , ids ,amounts);
+    }
 }

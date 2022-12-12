@@ -124,4 +124,22 @@ contract ERC1155 is IERC165 , IERC1155 , IERC1155MetadataURI {
 
         _doSafeBatchTransferAcceptanceCheck(operator , address(0) , to , id , amount , data);
     }
+
+    function _mintBatch(
+        address to,
+        uint256[] memory ids,
+        uint256[] memory amounts,
+        bytes memory data
+    ) internal virtual {
+        require(to != address(0) , "ERC1155: mint to the zero address");
+        require(ids.length == amounts.length , "ERC1155: ids and amounts length mismatch");
+
+        address operator = msg.sender;
+        for (uint256 i = 0; i < ids.length; i++) {
+            _balances[ids[i][to] += amounts[i]];
+        }
+        emit TransferBatch(operator , address(0) , to , ids , amounts);
+
+        _doSafeBatchTransferAcceptanceCheck(operator , address(0) , to , ids , amounts , data);
+    }
 }

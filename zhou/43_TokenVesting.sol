@@ -27,5 +27,15 @@ contract TokenVesting {
         emit ERC20Released(token , releasable);
         IERC20(token).transfer(beneficiary , releasable);
     }
-    
+
+    function vestedAmount(address token , uint256 timestamp) public view returns (uint256) {
+        uint256 totalAllocation = IERC20(token).balanceOf(address(this)) + erc20Released[token];
+        if (timestamp < start) {
+            return 0;
+        } else if (timestamp > start + duration) {
+            return totalAllocation;
+        } else {
+            return (totalAllocation * (timestamp - start)) / duration;
+        }
+    }
 }

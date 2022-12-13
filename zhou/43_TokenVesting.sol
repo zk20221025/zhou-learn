@@ -20,4 +20,12 @@ contract TokenVesting {
         start = block.timestamp;
         duration = durationSeconds;
     }
+
+    function release(address token) public {
+        uint256 releasable = vestedAmount(token , uint256(block.timestamp)) - erc20Released[token];
+        erc20Released[token] += releasable;
+        emit ERC20Released(token , releasable);
+        IERC20(token).transfer(beneficiary , releasable);
+    }
+    
 }

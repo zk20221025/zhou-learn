@@ -39,4 +39,16 @@ contract PaymentSplit {
         uint256 totalReceived = address(this).balance + totalRealeased;
         return pendingPayment(_account , totalReceived , released[_account]);
     }
+
+    function pendingPayment(
+        address _account,
+        uint256 _totalReceived,
+        uint256 _alreadyReleased
+    ) public view returns (uint256) {
+        return (_totalReceived * shares[_account]) / totalShares - _alreadyReleased;
+    }
+
+    function _addPayee(address _account , uint256 _accountShares) private {
+        
+    }
 }

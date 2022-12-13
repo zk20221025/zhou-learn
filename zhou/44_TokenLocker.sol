@@ -13,5 +13,17 @@ contract TokenLocker {
     uint256 public immutable lockTime;
     uint256 public immutable startTime;
 
-    
+    constructor(
+        IERC20 token_,
+        address beneficiary_,
+        uint256 lockTime_
+    ) {
+        require(lockTime_ > 0 , "Tokenlock: lock time should greater than 0");
+        token = token_;
+        beneficiary = beneficiary_;
+        lockTime = lockTime_;
+        startTime = block.timestamp;
+
+        emit TokenLockStart(beneficiary_ , address(token_) , block.timestamp , lockTime_);
+    }
 }

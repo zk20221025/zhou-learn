@@ -26,4 +26,12 @@ contract TokenLocker {
 
         emit TokenLockStart(beneficiary_ , address(token_) , block.timestamp , lockTime_);
     }
+
+    function release() public {
+        require(block.timestamp >= startTime+lockTime , "Tokenlock: current time is before release time");
+        uint256 amount = token.balanceOf(address(this));
+        require(amount > 0 , "Tokenlock: no tokens to release");
+        token.transfer(beneficiary , amount);
+        emit Release(msg.sender , address(token) , block.timestamp , amount);
+    }
 }

@@ -34,4 +34,9 @@ contract PaymentSplit {
         _account.transfer(payment);
         emit PaymentReceived(_account , payment);
     }
+
+    function releasable(address _account) public view returns (uint256) {
+        uint256 totalReceived = address(this).balance + totalRealeased;
+        return pendingPayment(_account , totalReceived , released[_account]);
+    }
 }

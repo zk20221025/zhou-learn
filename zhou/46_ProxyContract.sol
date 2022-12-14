@@ -27,7 +27,7 @@ contract Proxy {
             }
         }
     }
-
+}
 contract Logic {
         address public implementation;
         uint public x = 99;
@@ -37,5 +37,17 @@ contract Logic {
             emit CallSuccess();
             return x + 1;
         }
+}
+
+
+contract Caller {
+    address public proxy;
+    constructor(address proxy_) {
+        proxy = proxy_;
+    }
+
+    function increase() external returns (uint) {
+        ( , bytes memory data) = proxy.call(abi.encodeWithSignature("increment()"));
+        return abi.decode(data , (uint));
     }
 }

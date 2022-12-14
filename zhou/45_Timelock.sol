@@ -48,4 +48,25 @@ contract Timelock {
         
         emit CancelTransaction(txHash , target , value , signature , data , executeTime);
     }
+
+    function executeTransaction(address target , uint256 value , string memory signature , bytes memory data , uint256 executeTime) public payable onlyOwner returns (bytes memory) {
+        bytes32 txHash = getTxHash(target , value , signature , data , executeTime);
+        require(queuedTransactions[txHash], "Timelock::executeTransaction: Transaction hasn't been queued.");
+        require(getBlockTimestamp() >= executeTime, "Timelock::executeTransaction: Transaction hasn't surpassed time lock.");
+       require(getBlockTimestamp() <= executeTime + GRACE_PERIOD, "Timelock::executeTransaction: Transaction is stale.");
+        queuedTransactions[txHash] = false;
+        bytes memory callData;
+        if (bytes(signature).length == 0) {
+            callData = data;
+        } else {
+            callData = abi.encodePacked(bytes4(keccak256(bytes(signature))), data);
+        }
+        (bool success, bytes memory returnData) = target.call{value: value}(callData);
+        require(success, "Timelock::executeTransaction: Transaction execution reverted.");
+
+        emit ExecuteTransaction(txHash, target, value, signature, data, executeTime);
+
+        return returnData;
+    }
+    
 }

@@ -2,7 +2,7 @@
 pragma solidity ^0.8.4;
 
 contract Timelock {
-    event CanceTransaction(bytes32 indexed txHash , address indexed target , uint value , string signature , bytes data , uint executeTime);
+    event CancelTransaction(bytes32 indexed txHash , address indexed target , uint value , string signature , bytes data , uint executeTime);
     event ExecuteTransaction(bytes32 indexed txHash , address indexed target , uint value , string signature , bytes data , uint executeTime);
     event QueueTransaction(bytes32 indexed txHash , address indexed target , uint value , string signature , bytes data , uint executeTime);
     event NewAdmin(address indexed newAdmin);
@@ -10,7 +10,7 @@ contract Timelock {
     address public admin;
     uint public constant GRACE_PERIOD = 7 days;
     uint public delay;
-    mapping (bytes32 => bool) public QueuedTransactions;
+    mapping (bytes32 => bool) public queuedTransactions;
 
     modifier onlyOwner() {
         require(msg.sender == admin , "Timelock: Caller not admin");
@@ -32,10 +32,10 @@ contract Timelock {
         emit NewAdmin(newAdmin);
     }
 
-    function QueueTransaction(address target , uint256 value , string memory signature , bytes memory data , uint256 executeTime) public onlyOwner returns (bytes32) {
+    function queueTransaction(address target , uint256 value , string memory signature , bytes memory data , uint256 executeTime) public onlyOwner returns (bytes32) {
         require(executeTime >= getBlockTimestamp() + delay , "Timelock::queueTransaction: Estimated execution block must satisfy delay.");
         bytes32 txHash = getTxHash(target , value , signature , data , executeTime);
-        QueuedTransactions[txHash] = true;
+        queuedTransactions[txHash] = true;
 
         emit QueueTransaction(txHash , target , value , signature , data , executeTime);
         return txHash;
@@ -43,8 +43,8 @@ contract Timelock {
 
     function cancelTransaction(address target , uint256 value , string memory signature , bytes memory data , uint256 executeTime) public onlyOwner {
         bytes32 txHash = getTxHash(target , value , signature , data , executeTime);
-        require(QueuedTransactions[txHash] , "Timelock::cancelTransaction: Transaction hasn't been queued.");
-        QueuedTransactions[txHash] = false;
+        require(queuedTransactions[txHash] , "Timelock::cancelTransaction: Transaction hasn't been queued.");
+        queuedTransactions[txHash] = false;
         
         emit CancelTransaction(txHash , target , value , signature , data , executeTime);
     }
@@ -67,6 +67,20 @@ contract Timelock {
         emit ExecuteTransaction(txHash, target, value, signature, data, executeTime);
 
         return returnData;
+    }
+
+    function getBlockTimestamp() public view returns (uint) {
+        return block.timestamp;
+    }
+
+    function getTxHash(
+        address target,
+        uint value,
+        string memory signature,
+        bytes memory data,
+        uint executeTime
+    ) public pure returns (bytes32) {
+        return keccak256(abi.encode(target , value , signature , data ,executeTime));
     }
     
 }

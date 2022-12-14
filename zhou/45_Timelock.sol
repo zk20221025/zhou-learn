@@ -24,7 +24,7 @@ contract Timelock {
 
     constructor(uint delay_) {
         delay = delay_;
-        admin = msg.sender
+        admin = msg.sender;
     }
 
     function changeAdmin(address newAdmin) public onlyTimelock {
@@ -32,12 +32,20 @@ contract Timelock {
         emit NewAdmin(newAdmin);
     }
 
-    function QueuedTransactions(address target , uint256 value , string memory signature , bytes memory data , uint256 executeTime) public onlyOwner returns (bytes32) {
+    function QueueTransaction(address target , uint256 value , string memory signature , bytes memory data , uint256 executeTime) public onlyOwner returns (bytes32) {
         require(executeTime >= getBlockTimestamp() + delay , "Timelock::queueTransaction: Estimated execution block must satisfy delay.");
         bytes32 txHash = getTxHash(target , value , signature , data , executeTime);
         QueuedTransactions[txHash] = true;
 
         emit QueueTransaction(txHash , target , value , signature , data , executeTime);
         return txHash;
+    }
+
+    function cancelTransaction(address target , uint256 value , string memory signature , bytes memory data , uint256 executeTime) public onlyOwner {
+        bytes32 txHash = getTxHash(target , value , signature , data , executeTime);
+        require(QueuedTransactions[txHash] , "Timelock::cancelTransaction: Transaction hasn't been queued.");
+        QueuedTransactions[txHash] = false;
+        
+        emit CancelTransaction(txHash , target , value , signature , data , executeTime);
     }
 }

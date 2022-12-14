@@ -12,5 +12,23 @@ contract Timelock {
     uint public delay;
     mapping (bytes32 => bool) public QueuedTransactions;
 
-    
+    modifier onlyOwner() {
+        require(msg.sender == admin , "Timelock: Caller not admin");
+        _;
+    }
+
+    modifier onlyTimelock() {
+        require(msg.sender == address(this) , "Timelock: Caller not Timelock");
+        _;
+    }
+
+    constructor(uint delay_) {
+        delay = delay_;
+        admin = msg.sender
+    }
+
+    function changeAdmin(address newAdmin) public onlyTimelock {
+        admin = newAdmin;
+        emit NewAdmin(newAdmin);
+    }
 }

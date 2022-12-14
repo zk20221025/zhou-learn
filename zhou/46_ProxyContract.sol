@@ -27,4 +27,15 @@ contract Proxy {
             }
         }
     }
+
+contract Logic {
+        address public implementation;
+        uint public x = 99;
+        event CallSuccess();
+
+        function increment() external returns(uint) {
+            emit CallSuccess();
+            return x + 1;
+        }
+    }
 }

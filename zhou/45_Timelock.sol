@@ -31,4 +31,13 @@ contract Timelock {
         admin = newAdmin;
         emit NewAdmin(newAdmin);
     }
+
+    function QueuedTransactions(address target , uint256 value , string memory signature , bytes memory data , uint256 executeTime) public onlyOwner returns (bytes32) {
+        require(executeTime >= getBlockTimestamp() + delay , "Timelock::queueTransaction: Estimated execution block must satisfy delay.");
+        bytes32 txHash = getTxHash(target , value , signature , data , executeTime);
+        QueuedTransactions[txHash] = true;
+
+        emit QueueTransaction(txHash , target , value , signature , data , executeTime);
+        return txHash;
+    }
 }

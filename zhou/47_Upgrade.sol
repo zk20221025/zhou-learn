@@ -10,4 +10,13 @@ contract SimpleUpgrade {
         admin = msg.sender;
         implementation = _implementation;
     }
+
+    fallback() external payable {
+        (bool success , bytes memory data) = implementation.delegatecall(msg.data);
+    }
+
+    function upgrade(address newImplementation) external {
+        require(msg.sender == admin);
+        implementation = newImplementation;
+    }
 }

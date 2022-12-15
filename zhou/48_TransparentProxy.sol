@@ -16,5 +16,13 @@ contract TransparentProxy {
         implementation = _implementation;
     }
 
-    
+    fallback() external payable {
+        require(msg.sender != admin);
+        (bool success , bytes memory data) = implementation.delegatecall(msg.data);
+    }
+
+    function upgrade(address newImplementation) external {
+        if (msg.sender != admin) revert();
+        implementation = newImplementation;
+    }
 }

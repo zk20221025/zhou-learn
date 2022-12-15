@@ -30,3 +30,13 @@ contract Logic1 {
         words = "old";
     }
 }
+
+contract Logic2 {
+    address public implementation;
+    address public admin;
+    string public words;
+
+    function foo() public {
+        words = "new";
+    }
+}

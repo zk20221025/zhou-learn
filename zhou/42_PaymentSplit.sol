@@ -8,6 +8,7 @@ contract PaymentSplit {
 
     uint256 public totalShares;
     uint256 public totalRealeased;
+    
 
     mapping(address => uint256) public shares;
     mapping(address => uint256) public released;

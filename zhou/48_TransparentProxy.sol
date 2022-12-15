@@ -26,3 +26,13 @@ contract TransparentProxy {
         implementation = newImplementation;
     }
 }
+
+contract Logic1 {
+    address public implementation; 
+    address public admin; 
+    string public words;
+
+    function foo() public{
+        words = "old";
+    }
+}

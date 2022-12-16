@@ -60,3 +60,33 @@ contract GoodBank {
         return address(this).balance;
     }
 }
+
+contract ProtectedBank {
+    mapping (address => uint256) public balanceOf;
+    uint256 private _status;
+
+    modifier nonReentrant() {
+        require(_status == 0, "ReentrancyGuard: reentrant call");
+        _status = 1;
+        _;
+        _status = 0;
+    }
+
+    function deposit() external payable {
+        balanceOf[msg.sender] += msg.value;
+    }
+
+    function withdraw() external nonReentrant {
+        uint256 balance = balanceOf[msg.sender];
+        require(balance > 0, "Insufficient balance");
+
+        (bool success, ) = msg.sender.call{value: balance}("");
+        require(success, "Failed to send Ether");
+
+        balanceOf[msg.sender] = 0;
+    }
+
+    function getBalance() external view returns (uint256) {
+        return address(this).balance;
+    }
+}

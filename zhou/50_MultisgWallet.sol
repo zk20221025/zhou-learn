@@ -17,5 +17,20 @@ contract MultisigWallet {
         uint256 _threshold
     ) {
         _setupOwners(_owners , _threshold);
+    } 
+
+    function _setupOwners(address[] memory _owners , uint256 _threshold) internal {
+        require(threshold == 0 , "WTF5000");
+        require(_threshold <= _owners.length, "WTF5001");
+        require(_threshold >= 1 , "WTF5002");
+
+        for (uint256 i = 0; i < _owners.length; i++) {
+            address owner = _owners[i];
+            require(owner != address(0) && owner != address(this) && !isOwner[owner] , "WTF5003");
+            owners.push(owner);
+            isOwner[owner] = true;
+        }
+        ownerCount = _owners.length;
+        threshold = _threshold;
     }
 }

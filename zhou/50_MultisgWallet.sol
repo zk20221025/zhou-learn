@@ -48,4 +48,25 @@ contract MultisigWallet {
         if (success) emit ExecutionSuccess(txHash);
         else emit ExecutionFailure(txHash);
     }
+
+    function checkSignatures(
+        bytes32 dataHash,
+        bytes memory signatures
+    ) public view {
+        uint256 _threshold = threshold;
+        require(_threshold > 0 , "WTF5005");
+        require(signatures.length >= _threshold * 65 , "WTF5006");
+        address lastOwner = address(0);
+        address currentOwner;
+        uint8 v;
+        bytes32 r;
+        bytes32 s;
+        bytes32 i;
+        for (i = 0; i < _threshold; i++) {
+            (v , r , s ) = signaturesSplit(signatures , i);
+            currentOwner = ecrecover(keccak256(abi.encodePacked("\x19Ethereum Signed Message:\n32", dataHash)) , v , r , s);
+            require(currentOwner > lastOwner && isOwner[currentOwner] , "WTF5007");
+            lastOwner = currentOwner;
+        }
+    }
 }

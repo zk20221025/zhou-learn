@@ -33,4 +33,19 @@ contract MultisigWallet {
         ownerCount = _owners.length;
         threshold = _threshold;
     }
+
+    function execTransaction(
+        address to,
+        uint256 value,
+        bytes memory data,
+        bytes memory signatures
+    ) public payable virtual returns (bool success) {
+        bytes32 txHash = encodeTransactionData(to , value , data , nonce , block.chainid);
+        nonce++;
+        checkSignatures(txHash , signatures);
+        (success , ) = to.call{value: value}(data);
+        require(success , "WTF5004");
+        if (success) emit ExecutionSuccess(txHash);
+        else emit ExecutionFailure(txHash);
+    }
 }

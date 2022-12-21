@@ -17,4 +17,14 @@ contract SigReplay is ERC20 {
         require(verify(_msgHash, signature), "Invalid Signer!");
         _mint(to, amount);
     }
+
+    function getMessageHash(address to, uint256 amount) public pure returns(bytes32){
+        return keccak256(abi.encodePacked(to, amount));
+    }
+
+    function toEthSignedMessageHash(bytes32 hash) public pure returns (bytes32) {
+        return keccak256(abi.encodePacked("\x19Ethereum Signed Message:\n32", hash));
+    }
+
+    
 }

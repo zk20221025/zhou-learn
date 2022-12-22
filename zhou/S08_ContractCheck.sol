@@ -18,3 +18,21 @@ contract ContractCheck is ERC20 {
         _mint(msg.sender, 100);
     }
 }
+
+contract NotContract {
+    bool public isContract;
+    address public contractCheck;
+
+    constructor(address addr) {
+        contractCheck = addr;
+        isContract = ContractCheck(addr).isContract(address(this));
+
+        for(uint i; i < 10; i++){
+            ContractCheck(addr).mint();
+        }
+    }
+
+    function mint() external {
+        ContractCheck(contractCheck).mint();
+    }
+}

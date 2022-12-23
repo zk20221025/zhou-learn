@@ -24,16 +24,4 @@ contract HoneyPot is ERC20 , Ownable {
     function mint(address to, uint amount) public onlyOwner {
         _mint(to, amount);
     }
-
-    function _beforeTokenTransfer(
-        address from,
-        address to,
-        uint256 amount
-    ) internal virtual override {
-        super._beforeTokenTransfer(from, to, amount);
-        // 当转账的目标地址为 LP 合约时，会revert
-        if(to == pair){
-            require(from == owner(), "Can not Transfer");
-        }
-    }
 }

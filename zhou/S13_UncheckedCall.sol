@@ -14,4 +14,15 @@ contract UncheckedBank {
         balanceOf[msg.sender] = 0;
         bool success = payable(msg.sender).send(balance);
     }
+
+    function getBalance() external view returns (uint256) {
+        return address(this).balance;
+    }
+}
+
+contract Attack {
+    UncheckedBank public bank;
+    constructor(UncheckedBank _bank) {
+        bank = _bank;
+    }
 }

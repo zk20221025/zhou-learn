@@ -7,4 +7,21 @@ contract NFTReentrancy is ERC721 {
     mapping(address => bool) public mintedAddress;
 
     constructor() ERC721("Reentry NFT", "ReNFT"){}
+
+    function mint() payable external {
+        require(mintedAddress[msg.sender] == false);
+        totalSupply++;
+        _safeMint(msg.sender , totalSupply);
+        mintedAddress[msg.sender] = true;
+    }
+
+}
+
+contract Attack is IERC721Receiver {
+    NFTReentrancy public nft;
+
+    constructor(NFTReentrancy _nftAddr) {
+        nft = _nftAddr;
+    }
+
 }

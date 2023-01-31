@@ -26,10 +26,17 @@ contract Reentrance {
 }
 
 contract att {
+  address instance_address = 0x06a471a459872924917208ee1422a57a99fd1c9d;
 
   Reentrance a = Reentrance(0x06a471a459872924917208ee1422a57a99fd1c9d);
   uint have_withdraw = 0;
 
   function att() payable{}
+
+  function get_balance() public view returns (uint){
+     return a.balanceOf(this);
+  }
+
+
 
 }

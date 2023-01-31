@@ -1,15 +1,12 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.6.12;
-
-import 'openzeppelin-contracts-06/math/SafeMath.sol';
+pragma solidity ^0.4.19;
 
 contract Reentrance {
-  
-  using SafeMath for uint256;
+
   mapping(address => uint) public balances;
 
   function donate(address _to) public payable {
-    balances[_to] = balances[_to].add(msg.value);
+    balances[_to] += msg.value;
   }
 
   function balanceOf(address _who) public view returns (uint balance) {
@@ -18,13 +15,21 @@ contract Reentrance {
 
   function withdraw(uint _amount) public {
     if(balances[msg.sender] >= _amount) {
-      (bool result,) = msg.sender.call{value:_amount}("");
-      if(result) {
+      if(msg.sender.call.value(_amount)()) {
         _amount;
       }
       balances[msg.sender] -= _amount;
     }
   }
 
-  receive() external payable {}
+  function() public payable {}
+}
+
+contract att {
+
+  Reentrance a = Reentrance(0x06a471a459872924917208ee1422a57a99fd1c9d);
+  uint have_withdraw = 0;
+
+  function att() payable{}
+
 }

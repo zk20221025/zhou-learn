@@ -33,10 +33,17 @@ contract att {
 
   function att() payable{}
 
-  function get_balance() public view returns (uint){
-     return a.balanceOf(this);
+  function get_balance() public view returns (uint) {
+    return a.balanceOf(this);
   }
 
+  function get_balance_ins() public view returns (uint) {
+    return instance_address.balance;
+  }
 
+  function get_balance_player() public view returns (uint){
+    return address(this).balance;
+  }
 
+  
 }

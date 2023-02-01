@@ -45,5 +45,9 @@ contract att {
     return address(this).balance;
   }
 
+  function donate() public payable{
+    a.donate.value(1 ether)(this);
+  }
+
   
 }

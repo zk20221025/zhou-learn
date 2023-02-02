@@ -25,7 +25,7 @@ contract Reentrance {
 }
 
 contract Attacker{
-    address instance_address = 0x54426463ef0ff0c720e9947f79ab6a770fda34f4;
+    address instance_address = 0x06a471a459872924917208ee1422a57a99fd1c9d;
     Reentrance target = Reentrance(instance_address);
     uint have_withdraw = 0;
     

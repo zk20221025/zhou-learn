@@ -27,3 +27,11 @@ contract GatekeeperOne {
     return true;
   }
 }
+
+contract Hack {
+  GatekeeperOne gatekeeperOne = GatekeeperOne(0x0aB6aC3913B5c6536Cb9a0cB9E35f7F162Df4bEc);
+
+  function Attack() public {
+    
+  }
+}

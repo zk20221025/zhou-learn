@@ -33,3 +33,5 @@ contract SimpleToken {
         selfdestruct(_to);
     }
 }
+
+//从实例地址找到代币合约地址，remix部署SimpleToken，在At address中填写代币合约地址，然后destroy

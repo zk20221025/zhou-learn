@@ -27,3 +27,7 @@ contract MyContract {
 //0x600a     ;PUSH1 0x0a                      S
 //0x6000     ;PUSH1 0x00                      P
 //0xf3       ;RETURN
+
+//var account = "你的地址在这里"; 
+//var bytecode = "0x600a600c600039600a6000f3604260805260206080f3"; 
+//web3.eth.sendTransaction({ from: account, data: bytecode }, function(err,res){console.log(res)});

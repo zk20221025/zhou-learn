@@ -12,3 +12,14 @@ contract MyContract {
 //0x6020     ;PUSH1 0x20                  s
 //0x6080     ;PUSH1 0x80                  p
 //0xf3       ;RETURN
+
+//;copy bytecode to memory
+//0x600a     ;PUSH1 0x0a                      S(runtime code size)
+//0x60??     ;PUSH1 0x??                      F(current position of runtime opcodes)
+//0x6000     ;PUSH1 0x00                      T(destination memory index 0)
+//0x39       ;CODECOPY
+
+//;return code from memory to EVM
+//0x600a     ;PUSH1 0x0a                      S
+//0x6000     ;PUSH1 0x00                      P
+//0xf3       ;RETURN

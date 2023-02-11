@@ -29,3 +29,6 @@ contract AlienCodex is Ownable {
     codex[i] = _content;
   }
 }
+
+//await web3.eth.getStorageAt(contract.address,0)
+//await contract.make_contact() 

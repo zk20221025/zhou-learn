@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "openzeppelin-contracts-08/token/ERC20/IERC20.sol";
-import "openzeppelin-contracts-08/token/ERC20/ERC20.sol";
-import 'openzeppelin-contracts-08/access/Ownable.sol';
+import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/IERC20.sol";
+import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/ERC20.sol";
+import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/access/Ownable.sol";
 
 contract Dex is Ownable {
   address public token1;
@@ -54,3 +54,24 @@ contract SwappableToken is ERC20 {
     super._approve(owner, spender, amount);
   }
 }
+
+//await contract.approve(contract.address, 1000)
+//await contract.swap(await contract.token1(), await contract.token2(), await contract.balanceOf(await contract.token1(), player))
+// player.token1 = 0, contract.token1 = 110
+// player.token2 = 20, contract.token2 = 90
+//await contract.swap(await contract.token2(), await contract.token1(), await contract.balanceOf(await contract.token2(), player))
+// player.token1 = 24, contract.token1 = 86
+// player.token2 = 0, contract.token2 = 110
+//await contract.swap(await contract.token1(), await contract.token2(), await contract.balanceOf(await contract.token1(), player))
+// player.token1 = 0, contract.token1 = 110
+// player.token2 = 30, contract.token2 = 80
+//await contract.swap(await contract.token2(), await contract.token1(), await contract.balanceOf(await contract.token2(), player))
+// player.token1 = 41, contract.token1 = 69
+// player.token2 = 0, contract.token2 = 110
+//await contract.swap(await contract.token1(), await contract.token2(), await contract.balanceOf(await contract.token1(), player))
+// player.token1 = 0, contract.token1 = 110
+// player.token2 = 65, contract.token2 = 45
+//await contract.swap(await contract.token2(), await contract.token1(), 45)
+// player.token1 = 110, contract.token1 = 0
+// player.token2 = 20, contract.token2 = 90
+

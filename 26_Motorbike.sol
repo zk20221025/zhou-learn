@@ -2,8 +2,8 @@
 
 pragma solidity <0.7.0;
 
+import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/proxy/utils/Initializable.sol";
 import "openzeppelin-contracts-06/utils/Address.sol";
-import "openzeppelin-contracts-06/proxy/Initializable.sol";
 
 contract Motorbike {
     // keccak-256 hash of "eip1967.proxy.implementation" subtracted by 1
@@ -102,3 +102,10 @@ contract Engine is Initializable {
         r.value = newImplementation;
     }
 }
+//Ethernaut的摩托车有一个全新的可升级的发动机设计。 
+ 
+//你能自毁它的引擎，让摩托车无法使用吗? 
+ 
+//可能有帮助的事情: 
+ 
+//eip - 1967 UUPS可升级模式 Initializable合同

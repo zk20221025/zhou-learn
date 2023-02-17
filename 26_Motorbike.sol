@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity <0.7.0;
+pragma solidity ^0.7.0;
 
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/proxy/utils/Initializable.sol";
-import "openzeppelin-contracts-06/utils/Address.sol";
+import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/utils/Address.sol";
 
 contract Motorbike {
     // keccak-256 hash of "eip1967.proxy.implementation" subtracted by 1
@@ -109,3 +109,11 @@ contract Engine is Initializable {
 //可能有帮助的事情: 
  
 //eip - 1967 UUPS可升级模式 Initializable合同
+
+//await web3.eth.getStorageAt(contract.address, "0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc")
+
+//'0x000000000000000000000000a703788e9f64ac916beb486db6d33b761ec066e7'
+//“0xa703788e9f64ac916beb486db6d33b761ec066e7”
+
+//await web3.eth.getStorageAt("0xa703788e9f64ac916beb486db6d33b761ec066e7", "0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc")
+//'0x0000000000000000000000000000000000000000000000000000000000000000'

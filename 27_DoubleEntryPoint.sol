@@ -136,3 +136,6 @@ contract DoubleEntryPoint is ERC20("DoubleEntryPointToken", "DET"), DelegateERC2
 //该合同具有一个Forta合同，任何用户都可以注册自己的检测机器人合同。Forta是一个去中心化的、基于社区的监测网络，可以尽快检测到DeFi、NFT、治理、桥梁和其他Web3系统上的威胁和异常。您的工作是实现一个检测机器人，并将其注册到Forta契约中。机器人的实现需要发出正确的警报，以防止潜在的攻击或漏洞利用。 
  
 //可能有帮助的事情: 双入口点对于令牌合约是如何工作的?
+
+//web3.eth.sendTransaction({from:player, to:await contract.forta(), data:web3.utils.sha3("setDetectionBot(address)").slice(0,10) + "000000000000000000000000"+ "0745fb6D6026c9f0dD2CA377C442588F9dC81a48"})
+

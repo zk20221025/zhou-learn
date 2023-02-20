@@ -137,5 +137,10 @@ contract DoubleEntryPoint is ERC20("DoubleEntryPointToken", "DET"), DelegateERC2
  
 //可能有帮助的事情: 双入口点对于令牌合约是如何工作的?
 
-//web3.eth.sendTransaction({from:player, to:await contract.forta(), data:web3.utils.sha3("setDetectionBot(address)").slice(0,10) + "000000000000000000000000"+ "0745fb6D6026c9f0dD2CA377C442588F9dC81a48"})
 
+
+// 通过setDetectionBot将我们的部署合约设置进去
+//web3.eth.sendTransaction({from:player, to:await contract.forta(), data:web3.utils.sha3("setDetectionBot(address)").slice(0,10) + "000000000000000000000000"+ "beCBbf9903aA2083DBFE4B260dD73723c42189ac"})
+
+//设置部署合约的cryptoVaultAddr地址
+//web3.eth.sendTransaction({from:player, to:"0xbeCBbf9903aA2083DBFE4B260dD73723c42189ac", data:web3.utils.sha3("setCryptoVaultAddr(address)").slice(0,10) + "000000000000000000000000" + (await contract.cryptoVault()).slice(2)})

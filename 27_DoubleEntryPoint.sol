@@ -126,3 +126,13 @@ contract DoubleEntryPoint is ERC20("DoubleEntryPointToken", "DET"), DelegateERC2
         return true;
     }
 }
+
+//该级别具有具有特殊功能的CryptoVault，即sweepToken函数。这是一个常用的函数，用于检索卡在合同中的令牌。加密保险库使用底层令牌进行操作，该令牌不能被扫描，因为它是加密保险库的重要核心逻辑组件。任何其他令牌都可以被扫描。 
+ 
+//底层令牌是DoubleEntryPoint合约定义中实现的DET令牌实例，CryptoVault拥有100个单位的DET令牌。此外，CryptoVault还持有100个LegacyToken LGT。 
+ 
+//在这个级别中，您应该找出漏洞在CryptoVault中的位置，并保护它不被耗尽token。 
+ 
+//该合同具有一个Forta合同，任何用户都可以注册自己的检测机器人合同。Forta是一个去中心化的、基于社区的监测网络，可以尽快检测到DeFi、NFT、治理、桥梁和其他Web3系统上的威胁和异常。您的工作是实现一个检测机器人，并将其注册到Forta契约中。机器人的实现需要发出正确的警报，以防止潜在的攻击或漏洞利用。 
+ 
+//可能有帮助的事情: 双入口点对于令牌合约是如何工作的?

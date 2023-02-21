@@ -101,3 +101,10 @@ contract Wallet {
 interface INotifyable {
     function notify(uint256 amount) external;
 }
+
+//这个例子代表了一个慈善家，他很富有，准备向任何需要的人捐赠一些硬币。 
+ 
+//你能把他钱包里的钱都取出来吗? 
+ 
+//可能有帮助的事情: Solidity Custom Errors
+ 

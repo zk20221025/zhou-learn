@@ -3,6 +3,7 @@ pragma solidity ^0.8.0;
 pragma experimental ABIEncoderV2;
 
 import "https://github.com/OpenZeppelin/ethernaut/blob/master/contracts/contracts/helpers/UpgradeableProxy-08.sol";
+import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/utils/Address.sol";
 
 contract PuzzleProxy is UpgradeableProxy {
     address public pendingAdmin;

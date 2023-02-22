@@ -99,4 +99,17 @@ contract PuzzleWallet {
  
 //您需要劫持这个钱包才能成为代理的管理员。 
  
-//可能有帮助的事情: 理解委托调用如何工作以及msg如何工作。发件人和msg。Value在执行一个时的行为。 了解代理模式及其处理存储变量的方式。
+//可能有帮助的事情: 理解委托调用如何工作以及msg如何工作。发件人和msg.Value在执行一个时的行为。 了解代理模式及其处理存储变量的方式。
+
+//0x29bb6a661052967023760b875e88c7401ed6912a
+
+//await web3.eth.call({from:player, to:"0x29bb6a661052967023760b875e88c7401ed6912a", data:web3.utils.sha3("whitelisted(address)").slice(0,10) + "000000000000000000000000" + player.slice(2)})
+
+
+//0x2314cecfb5544bc18d05f2c31a0c60c54b4ed02610acb38b52682c8ab8318a68
+
+//await web3.eth.getStorageAt(instance, "0x2314cecfb5544bc18d05f2c31a0c60c54b4ed02610acb38b52682c8ab8318a68") 
+// 代理合约
+
+//await web3.eth.getStorageAt("0x29bb6a661052967023760b875e88c7401ed6912a", "0x2314cecfb5544bc18d05f2c31a0c60c54b4ed02610acb38b52682c8ab8318a68")//执行合约
+

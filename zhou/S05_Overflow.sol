@@ -22,3 +22,5 @@ contract Token {
         return balances[_owner];
     }
 }
+//8.0之前引入Safemath库即可避免
+//8.0之后内置Safemath，上文是使用unchecked则临时关闭整型溢出检测，可节省gas

@@ -14,7 +14,7 @@ contract NFTReentrancy is ERC721 {
         _safeMint(msg.sender , totalSupply);
         mintedAddress[msg.sender] = true;
     }
-
+    
 }
 
 contract Attack is IERC721Receiver {
@@ -33,5 +33,40 @@ contract Attack is IERC721Receiver {
             nft.mint();
         }
         return this.onERC721Received.selector;            
+    }
+}
+
+//预防措施：先检查地址是否mint过，再进行safeMint
+//加入重入锁，使用OpenZeppelin提供的ReentrancyGuard
+
+abstract contract ReentrancyGuard {
+    
+    uint256 private constant _NOT_ENTERED = 1;
+    uint256 private constant _ENTERED = 2;
+
+    uint256 private _status;
+
+    constructor() {
+        _status = _NOT_ENTERED;
+    }
+
+    modifier nonReentrant() {
+        _nonReentrantBefore();
+        _;
+        _nonReentrantAfter();
+    }
+
+    function _nonReentrantBefore() private {
+        require(_status != _ENTERED, "ReentrancyGuard: reentrant call");
+
+        _status = _ENTERED;
+    }
+
+    function _nonReentrantAfter() private {
+        _status = _NOT_ENTERED;
+    }
+
+    function _reentrancyGuardEntered() internal view returns (bool) {
+        return _status == _ENTERED;
     }
 }

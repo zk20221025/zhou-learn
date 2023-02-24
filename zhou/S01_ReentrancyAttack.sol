@@ -4,6 +4,8 @@ pragma solidity ^0.8.4;
 contract Bank {
     mapping (address => uint256) public balanceOf;
 
+    event LOG(bool success , uint256 balances);
+
     function deposit() external payable {
         balanceOf[msg.sender] += msg.value;
     }
@@ -12,6 +14,7 @@ contract Bank {
         uint256 balance = balanceOf[msg.sender];
         require(balance > 0 , "Insufficient balance");
         (bool success, ) = msg.sender.call{value: balance}("");
+        emit LOG(success , balance);
         require(success , "Failed to send Ether");
         balanceOf[msg.sender] = 0;
     }
@@ -45,6 +48,8 @@ contract Attack {
     }
 }
 
+//攻击合约中先调用bank中存款，然后withdraw，会重复调用攻击合约里的回调函数已经bank中的withdraw，直至清零
+
 contract GoodBank {
     mapping (address => uint256) public balanceOf;
 
@@ -60,6 +65,8 @@ contract GoodBank {
         return address(this).balance;
     }
 }
+
+//预防方法：更新余额提前到转账ETH之前
 
 contract ProtectedBank {
     mapping (address => uint256) public balanceOf;
@@ -90,3 +97,4 @@ contract ProtectedBank {
         return address(this).balance;
     }
 }
+//设置重入锁，即修饰器

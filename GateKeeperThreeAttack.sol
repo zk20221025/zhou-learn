@@ -27,5 +27,5 @@ contract GatekeeperThreeSolution {
         gatekeeper.enter();
     }
 }
-
+//调用construct0r（）完成gateone
 //部署合约（部署时转入大于0.001eth，完成gatethree），调用solve输入目标合约地址，

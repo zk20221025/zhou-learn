@@ -7,7 +7,7 @@ contract DataStorage {
     // data location can be omitted.
     uint[] x = [1,2,3];
 
-    function fStorage() public{
+    function fStorage() external{
         //声明一个storage的变量xStorage，指向x。修改xStorage也会影响x
         uint[] storage xStorage = x;
         xStorage[0] = 100;

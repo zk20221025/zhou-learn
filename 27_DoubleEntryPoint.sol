@@ -5,11 +5,11 @@ import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contr
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/ERC20.sol";
 
 interface DelegateERC20 {
-  function delegateTransfer(address to, uint256 value, address origSender) external returns (bool);
+    function delegateTransfer(address to, uint256 value , address origSender) external returns (bool);
 }
 
 interface IDetectionBot {
-    function handleTransaction(address user, bytes calldata msgData) external;
+    function handleTransaction(address user,bytes calldata msgData) external;
 }
 
 interface IForta {
@@ -19,25 +19,26 @@ interface IForta {
 }
 
 contract Forta is IForta {
-  mapping(address => IDetectionBot) public usersDetectionBots;
-  mapping(address => uint256) public botRaisedAlerts;
+    mapping(address => IDetectionBot) public usersDetectionBots;
+    mapping(address => uint256) public botRaisedAlerts;
 
-  function setDetectionBot(address detectionBotAddress) external override {
-      usersDetectionBots[msg.sender] = IDetectionBot(detectionBotAddress);
-  }
+    function setDetectionBot(address detectionBotAddress) external override {
+        usersDetectionBots[msg.sender] = IDetectionBot(detectionBotAddress);
+    }
 
-  function notify(address user, bytes calldata msgData) external override {
-    if(address(usersDetectionBots[user]) == address(0)) return;
-    try usersDetectionBots[user].handleTransaction(user, msgData) {
-        return;
-    } catch {}
-  }
+    function notify(address user, bytes calldata msgData) external override {
+        if(address(usersDetectionBots[user]) == address(0)) return;
+        try usersDetectionBots[user].handleTransaction(user , msgData) {
+            return;
+        } catch {}
+    }
 
-  function raiseAlert(address user) external override {
-      if(address(usersDetectionBots[user]) != msg.sender) return;
-      botRaisedAlerts[msg.sender] += 1;
-  } 
+    function raiseAlert(address user) external override {
+        if(address(usersDetectionBots[user]) != msg.sender) return;
+        botRaisedAlerts[msg.sender] += 1;
+    }
 }
+
 
 contract CryptoVault {
     address public sweptTokensRecipient;
@@ -52,9 +53,6 @@ contract CryptoVault {
         underlying = IERC20(latestToken);
     }
 
-    /*
-    ...
-    */
 
     function sweepToken(IERC20 token) public {
         require(token != underlying, "Can't transfer underlying token");

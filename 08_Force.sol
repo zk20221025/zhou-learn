@@ -8,3 +8,12 @@ contract Force {
         selfdestruct(target);
     }
 }
+
+contract Force {
+    constructor() payable {// 使用非0的value部署合约
+
+    }
+    function destruct(address payable addr) public  {
+        selfdestruct(addr);
+    }
+}

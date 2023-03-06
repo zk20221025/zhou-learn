@@ -20,3 +20,5 @@ contract Privacy {
   }
 
 }
+
+//bool一格，uint256一格，三个uint8可以放一格，data三格，uint/int左填充，bytes右填充。

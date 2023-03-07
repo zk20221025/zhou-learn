@@ -1,6 +1,10 @@
-pragma solidity ^0.4.11;
-contract MyContract {
-    uint i = (10 + 2) * 2;
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.17;
+
+contract MagicNumberSolution {
+    function whatIsTheMeaningOfLife() external pure returns (uint256) {
+        return 42;
+    }
 }
 
 //0x60806040526018600055348015601457600080fd5b5060358060226000396000f3006080604052600080fd00a165627a7a723058202ce9376153c7c402971d43c180f7a1c10719b27dad768bebc50b16bc07e901cf0029
@@ -31,3 +35,7 @@ contract MyContract {
 //var account = "你的地址在这里"; 
 //var bytecode = "0x600a600c600039600a6000f3604260805260206080f3"; 
 //web3.eth.sendTransaction({ from: account, data: bytecode }, function(err,res){console.log(res)});
+
+
+//0x69602a60005260206000f3600052600a6016f3
+//push10;push1 0x2a,push1 0x00 , MSTORE,push1 0x00,RETURN,push1 0x00,MSTORE,push1 0x0a,push1,AND,RETURN

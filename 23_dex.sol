@@ -55,7 +55,7 @@ contract SwappableToken is ERC20 {
   }
 }
 
-//await contract.approve(contract.address, 1000)
+//await contract.approve(contract.address, 1111)
 //await contract.swap(await contract.token1(), await contract.token2(), await contract.balanceOf(await contract.token1(), player))
 // player.token1 = 0, contract.token1 = 110
 // player.token2 = 20, contract.token2 = 90

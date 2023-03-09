@@ -29,9 +29,7 @@ contract GatekeeperOne {
 }
 
 contract Hack {
-  GatekeeperOne gatekeeperOne = GatekeeperOne(0x0aB6aC3913B5c6536Cb9a0cB9E35f7F162Df4bEc);
-
-
+  GatekeeperOne gatekeeperOne = GatekeeperOne(0xdEa621dA2007adb0a2D19Ad1F262067B7e246AD1);
 
   function open() public {
     bytes8 key = bytes8(uint64(uint160(tx.origin))) & 0xFFFFFFFF0000FFFF;

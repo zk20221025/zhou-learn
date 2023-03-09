@@ -89,6 +89,7 @@ contract PuzzleWallet {
     }
 }
 
+
 //事实上，现在为DeFi操作付费是不可能的。 
  
 //一群朋友发现了如何通过将多个交易批处理在一个交易中来略微降低执行多个交易的成本，因此他们为此开发了一个智能合约。 
@@ -103,7 +104,7 @@ contract PuzzleWallet {
 
 //0x29bb6a661052967023760b875e88c7401ed6912a
 
-//await web3.eth.call({from:player, to:"0x29bb6a661052967023760b875e88c7401ed6912a", data:web3.utils.sha3("whitelisted(address)").slice(0,10) + "000000000000000000000000" + player.slice(2)})
+//await web3.eth.call({from:player, to:"0xfe1e7ba91c8e8B07237A341bDF41CF25C89b1F6A", data:web3.utils.sha3("whitelisted(address)").slice(0,10) + "000000000000000000000000" + player.slice(2)})
 
 
 //0x2314cecfb5544bc18d05f2c31a0c60c54b4ed02610acb38b52682c8ab8318a68
@@ -111,5 +112,5 @@ contract PuzzleWallet {
 //await web3.eth.getStorageAt(instance, "0x2314cecfb5544bc18d05f2c31a0c60c54b4ed02610acb38b52682c8ab8318a68") 
 // 代理合约
 
-//await web3.eth.getStorageAt("0x29bb6a661052967023760b875e88c7401ed6912a", "0x2314cecfb5544bc18d05f2c31a0c60c54b4ed02610acb38b52682c8ab8318a68")//执行合约
+//await web3.eth.getStorageAt("0xfe1e7ba91c8e8B07237A341bDF41CF25C89b1F6A", "0x2314cecfb5544bc18d05f2c31a0c60c54b4ed02610acb38b52682c8ab8318a68")//执行合约
 

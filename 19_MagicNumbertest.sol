@@ -39,3 +39,14 @@ contract MagicNumberSolution {
 
 //0x69602a60005260206000f3600052600a6016f3
 //push10;push1 0x2a,push1 0x00 , MSTORE,push1 0x00,RETURN,push1 0x00,MSTORE,push1 0x0a,push1,AND,RETURN
+
+MagicNumberSolution
+
+await ethereum.request({
+method: 'eth_sendTransaction',
+params: [{
+from: (await ethereum.request({ method: '0xd24eceF3AA9257383BD3341e63F6Cd73951186dF' }))[0], data: '0x69602a60005260206000f3600052600a6016f3'
+}]
+});
+
+await contract.setSolver('上文合约部署地址');

@@ -25,7 +25,7 @@ contract Call {
 
     function callNonExist(address _addr) external {
         (bool success , bytes memory data) = _addr.call(
-            abi.encodeWithSignature("foo(uint256")
+            abi.encodeWithSignature("foo(uint256)")
         );
 
         emit Response(success , data);
@@ -39,23 +39,25 @@ contract Call {
 //目标合约地址.call(abi.encodeWithSignature("函数签名", 逗号分隔的具体参数));
 //目标合约地址.call{value:发送数额, gas:gas数额}(二进制编码);
 
-
-
 contract Call1 {
+
     event Response(bool success , bytes data);
 
-    function callSetX(address payable _addr , uint x) external payable {
-        (bool success , bytes memory data) = _addr.call{value : msg.value}(abi.encodeWithSignature("setX(uint256)" , x));
+    function callSetX(address payable _addr , uint x) public payable {
+        (bool success , bytes memory data) = _addr.call{value : msg.value}(abi.encodeWithSignature("setX(uint256)" , x ));
         emit Response(success , data);
     }
 
-    function callGetX(address _addr) external returns (uint256) {
+    function callGetX(address _addr) external returns(uint256) {
         (bool success , bytes memory data) = _addr.call(abi.encodeWithSignature("getX()"));
         emit Response(success , data);
         return abi.decode(data , (uint256));
     }
 
-    function 
+    function callNonExist(address _addr) external {
+        (bool success , bytes memory data) = _addr.call(abi.encodeWithSignature("foo(uint2560"));
+        emit Response(success , data);
+    }
 }
 
 contract OtherContract {

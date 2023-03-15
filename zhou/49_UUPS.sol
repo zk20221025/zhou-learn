@@ -57,3 +57,6 @@ contract UUPS2{
         implementation = newImplementation;
     }
 }
+
+//需从代理合约用函数选择器调用逻辑合约里的foo（）函数改变words。
+//修改逻辑合约需用upgrade的函数选择器跟逻辑合约的地址在代理合约里面calldata，然后再重复上述操作。

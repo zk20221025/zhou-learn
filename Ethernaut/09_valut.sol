@@ -16,3 +16,7 @@ contract Vault {
     }
   }
 }
+
+// locked存储在slot 0 ， password虽然设为了 private，但是在区块中的数据仍然是可见的，存储在slot 1
+//await web3.eth.getStorageAt(instance, 1)
+//await contract.unlock(password)

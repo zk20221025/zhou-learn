@@ -42,8 +42,8 @@ contract Attack {
         owner = msg.sender;
     }
 }
-
-// await contract.setSecondTime("攻击合约")
+// 通过 delegatecall 来调用另一个合约的函数并不会动用另一个合约的 storage，而是使用本地 storage，所以调用setTime函数更改storedTime会修改timeZone1Library
+// await contract.setFirstTime("攻击合约")
 // await contract.setFirstTime("0")
 
 

